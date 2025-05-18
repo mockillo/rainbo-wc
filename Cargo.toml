@@ -2,11 +2,14 @@
 name = "rainbo-wc"
 version = "0.1.0"
 edition = "2024"
-description = "A more colourful version of wc"
+description = "A more colorful version of wc"
 license = "MIT"
 repository = "https://github.com/mockillo/rainbo-wc"
 homepage = "https://github.com/mockillo/rainbo-wc"
 documentation = "https://github.com/mockillo/rainbo-wc"
+authors = ["Alexander Polden <mockillo@gmail.com>"]
+keywords = ["cli", "wc"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 clap = { version = "4.5.38", features = ["derive"] }

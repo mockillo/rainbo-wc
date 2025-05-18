@@ -20,7 +20,7 @@ struct Args {
     #[arg(short = 'm', long)]
     chars: bool,
 
-    #[arg(required = false, default_value = "")]
+    #[arg()]
     file: String,
 }
 

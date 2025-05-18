@@ -2,7 +2,7 @@ use colored::Colorize;
 
 pub struct RainbowWriter {
     colors: Vec<(u8, u8, u8)>,
-    iterator: usize,
+    counter: usize,
 }
 
 impl RainbowWriter {
@@ -18,15 +18,15 @@ impl RainbowWriter {
                 (201, 186, 255), // Pastel Indigo
                 (255, 186, 255), // Pastel Violet
             ],
-            iterator: 0,
+            counter: 0,
         }
     }
 
     pub fn write(&mut self, string: &str) {
         for c in string.chars() {
-            let color = self.colors[self.iterator % self.colors.len()];
+            let color = self.colors[self.counter % self.colors.len()];
             print!("{}", c.to_string().truecolor(color.0, color.1, color.2));
-            self.iterator += 1;
+            self.counter += 1;
         }
     }
 
