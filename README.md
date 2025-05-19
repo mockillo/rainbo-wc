@@ -16,9 +16,16 @@ If you want specific output, you can specify modes with the following flags:
 Output will render in glorious pastel rainbow colors, if your terminal supports it.
 
 ```shell-session
-$ rainbo-wc test.txt
+rainbo-wc test.txt
 ```
+
 <img src="screenshots/test-output.png">
+
+You can also pipe your content to rainbo-wc, as such:
+
+```shell-session
+cat <file> | rainbo-wc
+```
 
 ## Installation
 
@@ -32,3 +39,4 @@ cargo build --release
 
 ```shell-session
 cargo run -- <flags> <filename>
+```

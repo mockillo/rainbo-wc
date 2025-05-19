@@ -4,6 +4,7 @@ use clap::Parser;
 use rainbo_wc::{
     file_reader::get_data, file_statistics::FileStatistics, rainbow_writer::RainbowWriter,
 };
+use std::process;
 
 #[derive(Parser, Debug)]
 #[command(version, about)]
@@ -20,7 +21,11 @@ struct Args {
     #[arg(short = 'm', long)]
     chars: bool,
 
-    #[arg()]
+    #[arg(
+        required = false,
+        default_value = "",
+        help = "File to read, omit if content is provided via standard input"
+    )]
     file: String,
 }
 
@@ -34,7 +39,25 @@ fn main() {
         args.bytes = true;
     }
 
-    let file = get_data(&args.file).unwrap();
+    let file = match get_data(&args.file) {
+        Ok(data) => data,
+        Err(e) => match e.kind() {
+            std::io::ErrorKind::NotFound => {
+                if args.file.is_empty() {
+                    println!("No file provided, use -h to see options");
+                    process::exit(1);
+                } else {
+                    println!("File not found: {}", args.file);
+                    process::exit(1);
+                }
+            }
+            _ => {
+                println!("Error reading file: {}", e);
+                process::exit(1);
+            }
+        },
+    };
+
     let statistics = FileStatistics::get_string_statistics(file).unwrap();
 
     if args.lines {
